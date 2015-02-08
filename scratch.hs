@@ -9,6 +9,7 @@ import System.Environment
 import System.IO
 import System.Directory
 import Data.List
+import Data.Char
 import Control.Exception
 
 --Sets where the scratch pad will be located
@@ -54,10 +55,15 @@ add _ = putStrLn "Add takes exactly two arguments"
 --Remove ideas from the file
 remove :: [String] -> IO ()
 remove [numberString] = do
-	--Turns numberString to type Char use import Data.Char and digitToInt to
-	--turn into a number
-	let number = head(head numberString)
-	putStrLn "Temporary"
+	contents <- readFile scratchpad
+	let splitContents = lines contents
+	let	numberedIdeas = zipWith (\n line -> show n ++ " - " ++ line) [0..] splitContents
+	let number = read numberString
+	let newIdeas = unlines $ delete (splitContents !! number) splitContents
+	let deletion = "You are deleting line number " ++ numberString
+	mapM_ putStrLn numberedIdeas
+	putStrLn deletion
+	writeFile scratchpad newIdeas
 remove _ = putStrLn "You need to provide a number to delete an idea"
 
 --Displays different functions to the user
