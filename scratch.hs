@@ -1,16 +1,11 @@
 --Acts as a scratch pad for ideas to be referenced at any time
 --from the command line
 
---To Do
---Figure out why one let will not work for more than the line it is on
---Finish remove function
-
 import System.Environment
 import System.IO
 import System.Directory
 import Data.List
 import Data.Char
-import Control.Exception
 
 --Sets where the scratch pad will be located
 scratchpad = "/home/michael/.scratchpad"
